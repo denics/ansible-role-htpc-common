@@ -46,30 +46,34 @@
     when: htpc_user_sudo_access
   
   tags:
-    - user
+    - createuser
 
 # Create media folders
-- name: Create Media Folders
-  file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0755 recurse=yes
-  with_items:
+- block:
+  - name: Create Media Folders
+    file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0755 recurse=yes
+    with_items:
     - "{{ htpc_media_path }}/{{ htpc_media_movies }}"
     - "{{ htpc_media_path }}/{{ htpc_media_tv }}"
     - "{{ htpc_media_path }}/{{ htpc_media_music }}"
     - "{{ htpc_media_path }}/{{ htpc_media_pictures }}"
-  when: htpc_create_media_folders
-  tags:
+    when: htpc_create_media_folders
+    tags:
     - media
 
-- name: Create Downloads Folders
-  file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0755 recurse=yes
-  with_items:
+  - name: Create Downloads Folders
+    file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0755 recurse=yes
+    with_items:
     - "{{ htpc_downloads_complete }}"
     - "{{ htpc_downloads_incomplete }}"
 
-- name: Create Processing Folders
-  file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0755 recurse=yes
-  with_items:
+  - name: Create Processing Folders
+    file: path={{ item }} state=directory owner={{ htpc_user_username }} group={{ htpc_user_group }} mode=0755 recurse=yes
+    with_items:
     - "{{ htpc_downloads_incomplete }}/process/"
     - "{{ htpc_downloads_incomplete }}/process/{{ htpc_media_movies }}"
     - "{{ htpc_downloads_incomplete }}/process/{{ htpc_media_tv }}"
     - "{{ htpc_downloads_incomplete }}/process/{{ htpc_media_music }}"
+
+  tags:
+    - mediafolders
