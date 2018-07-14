@@ -1,18 +1,17 @@
 galaxy_info:
-  author: Denis Pitzalis
+  author: Gregory Shulov
   description: An ansible role to perform common tasks on HTPC
   license: BSD
   
-  min_ansible_version: 2.4
+  min_ansible_version: 2.0
 
   platforms:
-    - name: Raspbian
+    - name: Ubuntu
       versions:
-      - stretch
+      - trusty
   
   galaxy_tags:
     - htpc
     - system
-    - rpi
 
 dependencies: []
